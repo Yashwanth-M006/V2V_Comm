@@ -1,0 +1,19 @@
+[Unit]
+Description=V2V ADAS Dashboard
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=simple
+User=pi
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/pi/.Xauthority
+Environment=QT_QPA_PLATFORM=xcb
+Environment=QT_LOGGING_RULES=*.debug=false
+WorkingDirectory=/home/pi/v2v_dashboard
+ExecStart=/usr/bin/python3 /home/pi/v2v_dashboard/dashboard.py --port /dev/ttyS0 --baud 115200
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target
